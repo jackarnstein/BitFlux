@@ -329,7 +329,7 @@ module.exports = function(grunt) {
                     'src/assets/js/**/*.js': ['browserify'],
                     'test/**/*.js': ['browserify']
                 },
-                exclude: ['src/assets/js/main.js'],
+                exclude: ['src/assets/js/main.js', 'test/ui/**'],
                 files: [
                     '<%= meta.vendorJsFiles %>',
                     '<%= meta.srcJsFiles %>',
