@@ -1,16 +1,12 @@
-/**
- * Created by jarnstein on 26/10/2015.
- */
 var SpecReporter = require('jasmine-spec-reporter');
 var HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
 
 exports.config = {
     framework: 'jasmine2',
-    //seleniumAddress: 'http://localhost:4444/wd/hub',
     suites: {
         indicators: ['specs/Indicators/*-spec.js'],
         series: ['specs/Series/*-spec.js'],
-        legend: ['specs/CrossHair/*-spec.js'],
+        crosshair: ['specs/CrossHair/*-spec.js'],
         product: ['specs/Products/*-spec.js'],
         gridlines: ['specs/Gridlines/*-spec.js'],
         navigator: ['specs/Navigator/*-spec.js'],
@@ -22,6 +18,7 @@ exports.config = {
     },
     onPrepare: function() {
         browser.driver.manage().window().maximize();
+        //Uncomment this to disable animation
         //var disableNgAnimate = function() {
         //    angular.module('disableNgAnimate', []).run(function($animate) {
         //        $animate.enabled(false);
@@ -63,33 +60,35 @@ exports.config = {
             currentHoursIn24Hour = currentDate.getHours(),
             totalDateString = currentDate.getDate() + '-' + (currentDate.getMonth() + 1) + '-' + (currentDate.getYear() + 1900) + '-' + currentHoursIn24Hour + 'h-' + currentDate.getMinutes() + 'm';
 
-        /*jasmine.getEnv().addReporter(
-            new HtmlScreenshotReporter({
-                dest: './results/' + totalDateString,
-                filename: 'my-report.html',
+        //uncomment this if running locally and you would like screenshots
+        //jasmine.getEnv().addReporter(
+        //    new HtmlScreenshotReporter({
+        //        dest: './results/' + totalDateString,
+        //        filename: 'my-report.html',
+        //
+        //        pathBuilder: function pathBuilder(spec, suite) {
+        //            var folderPath = [];
+        //            //console.log(spec);
+        //            if (spec._suite._parent) {
+        //                var specParent = spec._suite;
+        //                while (specParent._parent) {
+        //                    folderPath.push(specParent._parent.description);
+        //                    specParent = specParent._parent;
+        //                }
+        //                folderPath.push(spec._suite.description);
+        //            }
+        //            if (folderPath.length > 0) {
+        //                var savePath = '';
+        //                for (var i = 0; i < folderPath.length; i++) {
+        //                    savePath += folderPath[i] + '/';
+        //                }
+        //                return path.join(suite.suite1._specs[0]._bName, savePath, spec.description);
+        //            } else {
+        //                return path.join(suite.suite1._specs[0]._bName, spec._suite.fullName, spec.description);
+        //            }
+        //        }
+        //    }));
 
-                pathBuilder: function pathBuilder(spec, suite) {
-                    var folderPath = [];
-                    //console.log(spec);
-                    if (spec._suite._parent) {
-                        var specParent = spec._suite;
-                        while (specParent._parent) {
-                            folderPath.push(specParent._parent.description);
-                            specParent = specParent._parent;
-                        }
-                        folderPath.push(spec._suite.description);
-                    }
-                    if (folderPath.length > 0) {
-                        var savePath = '';
-                        for (var i = 0; i < folderPath.length; i++) {
-                            savePath += folderPath[i] + '/';
-                        }
-                        return path.join(suite.suite1._specs[0]._bName, savePath, spec.description);
-                    } else {
-                        return path.join(suite.suite1._specs[0]._bName, spec._suite.fullName, spec.description);
-                    }
-                }
-            }));*/
         // add jasmine spec reporter change from NONE to all on stacktrace if need help!
         jasmine.getEnv().addReporter(new SpecReporter({
             displayStacktrace: 'all',
@@ -107,21 +106,10 @@ exports.config = {
         }));
     },
     multiCapabilities: [
-    //    {
-    //    browserName: 'firefox',
-    //    shardTestFiles: false,
-    //    //make 2 for arallel
-    //    maxInstances:2
-    //},
         {
             browserName: 'chrome',
             shardTestFiles: false,
-        //make 2 for parallel
-            maxInstances: 1
+            maxInstances: 1     //make 2 for parallel
         }
-    //    {
-    //        browserName: 'internet explorer',
-    //        version: '11'
-    //    }
     ]
 };

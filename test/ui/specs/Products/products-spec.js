@@ -1,14 +1,9 @@
-/**
- * Created by jarnstein on 19/11/2015.
- */
 'use strict';
+
 var HomePage = require('../../pages/main-page.js');
-var HomeHelper = require('../../helpers/homepage-helper.js');
-var helper = new HomeHelper();
 
 describe('Series', function() {
     var page;
-
 
     beforeAll(function() {
         browser.ignoreSynchronization = true;
